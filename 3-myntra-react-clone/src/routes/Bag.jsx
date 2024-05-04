@@ -15,7 +15,7 @@ const Bag = () => {
       <div className="bag-page">
         <div className="bag-items-container">
           {finalItems.map((item) => (
-            <BagItem item={item} />
+            <BagItem key={item.id} item={item} />
           ))}
         </div>
         <BagSummary />

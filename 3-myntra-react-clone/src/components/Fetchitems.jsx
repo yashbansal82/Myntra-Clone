@@ -14,7 +14,7 @@ const FetchItems = () => {
     const signal = controller.signal;
 
     dispatch(fetchStatusActions.markFetchingStarted());
-    fetch(process.env.BACKEND_URI, { signal })
+    fetch(import.meta.env.VITE_BACKEND_URI, { signal })
       .then((res) => res.json())
       .then(({ items }) => {
         dispatch(fetchStatusActions.markFetchDone());
@@ -22,9 +22,9 @@ const FetchItems = () => {
         dispatch(itemsActions.addInitialItems(items[0]));
       });
 
-    return () => {
-      controller.abort();
-    };
+    // return () => {
+    //   controller.abort();
+    // };
   }, [fetchStatus]);
 
   return <></>;
