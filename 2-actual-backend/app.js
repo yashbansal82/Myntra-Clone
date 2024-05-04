@@ -8,7 +8,6 @@ const app = express();
 app.use(bodyParser.json());
 const corsOptions = {
   origin: process.env.FRONTEND_URI,
-  methods: ["GET", "POST", "PUT", "DELETE"],
 };
 app.use(cors(corsOptions));
 
@@ -41,6 +40,9 @@ app.post("/items", async (req, res) => {
   const updatedItems = [newItem, ...existingItems];
   await storeItems(updatedItems);
   res.status(201).json({ message: "Stored new item.", item: newItem });
+});
+app.get("/", (req, res) => {
+  res.json("get request");
 });
 
 // app.listen(import.meta.env.PORT);
