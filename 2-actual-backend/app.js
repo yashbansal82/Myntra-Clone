@@ -11,9 +11,14 @@ app.use(bodyParser.json());
 const corsOptions = {
   origin: process.env.FRONTEND_URI, // Whitelist your frontend URI
   methods: ["GET", "POST"], // Allow only specified HTTP methods
-  credentials: true, // Allow credentials (cookies, authorization headers)
 };
 
+app.use((req,res,next)=>{
+  res.setHeader('Access-Control-Allow-Origin','*');
+  res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
+  res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
+  next(); 
+})
 // Apply CORS middleware with options
 app.use(cors(corsOptions));
 
