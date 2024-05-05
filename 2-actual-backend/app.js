@@ -11,7 +11,6 @@ app.use(bodyParser.json());
 const corsOptions = {
   origin: process.env.FRONTEND_URI, // Whitelist your frontend URI
   methods: ["GET", "POST"], // Allow only specified HTTP methods
-  allowedHeaders: ["Content-Type"], // Allow only specified headers
   credentials: true, // Allow credentials (cookies, authorization headers)
 };
 
