@@ -7,7 +7,9 @@ const app = express();
 
 app.use(bodyParser.json());
 const corsOptions = {
-  origin: process.env.FRONTEND_URI,
+  origin: process.env.FRONTEND_URI, // Whitelist your frontend URI
+  methods: ["GET", "POST"], // Allow only specified HTTP methods
+  allowedHeaders: ["Content-Type"], // Allow only specified headers
 };
 app.use(cors(corsOptions));
 
