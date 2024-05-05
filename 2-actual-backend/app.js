@@ -6,20 +6,19 @@ const { getStoredItems, storeItems } = require("./data/items");
 const app = express();
 
 app.use(bodyParser.json());
+
+// Define CORS options
 const corsOptions = {
   origin: process.env.FRONTEND_URI, // Whitelist your frontend URI
   methods: ["GET", "POST"], // Allow only specified HTTP methods
   allowedHeaders: ["Content-Type"], // Allow only specified headers
+  credentials: true, // Allow credentials (cookies, authorization headers)
 };
+
+// Apply CORS middleware with options
 app.use(cors(corsOptions));
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
-
+// Define routes
 app.get("/items", async (req, res) => {
   const storedItems = await getStoredItems();
   await new Promise((resolve, reject) => setTimeout(() => resolve(), 2000));
@@ -43,12 +42,13 @@ app.post("/items", async (req, res) => {
   await storeItems(updatedItems);
   res.status(201).json({ message: "Stored new item.", item: newItem });
 });
+
 app.get("/", (req, res) => {
   res.json("get request");
 });
 
-// app.listen(import.meta.env.PORT);
-const PORT = process.env.PORT || 8080; // Use port from environment variable or default to 8080
+// Start the server
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
