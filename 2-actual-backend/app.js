@@ -7,20 +7,16 @@ const app = express();
 
 app.use(bodyParser.json());
 
-// Define CORS options
-const corsOptions = {
-  origin: process.env.FRONTEND_URI, // Whitelist your frontend URI
-  methods: ["GET", "POST"], // Allow only specified HTTP methods
-};
+// Set up CORS headers
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
 
-app.use((req,res,next)=>{
-  res.setHeader('Access-Control-Allow-Origin','*');
-  res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
-  res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
-  next(); 
-})
-// Apply CORS middleware with options
-app.use(cors(corsOptions));
+// Apply CORS middleware
+app.use(cors());
 
 // Define routes
 app.get("/items", async (req, res) => {
