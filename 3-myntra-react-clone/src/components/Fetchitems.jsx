@@ -14,7 +14,7 @@ const FetchItems = () => {
     const signal = controller.signal;
 
     dispatch(fetchStatusActions.markFetchingStarted());
-    fetch(import.meta.VITE_FRONTEND_URI, { signal })
+    fetch(`${import.meta.VITE_FRONTEND_URI}/items`, { signal })
       .then((res) => res.json())
       .then(({ items }) => {
         dispatch(fetchStatusActions.markFetchDone());
